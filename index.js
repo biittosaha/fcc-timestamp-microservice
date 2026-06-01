@@ -24,11 +24,13 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-app.get("/api/:smthing", function (req, res) {
+app.get("/api/:smthing?", function (req, res) {
   let val = req.params.smthing;
   let date;
 
-  if (/^\d+$/.test(val)) {
+  if (!val) {
+    date = new Date();
+  } else if (/^\d+$/.test(val)) {
     let timestamp = Number(val);
     if (val.length === 10) {
       timestamp *= 1000;
